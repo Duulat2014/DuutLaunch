@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Элементы управления -->
+    <color name="control_button_color">#3310B981</color>
+    <color name="control_button_pressed_color">#4010B981</color>
+
+    <!-- Неоново-изумрудный акцент для темной темы -->
+    <color name="minebutton_color">#10B981</color>
+    <color name="minebutton_secondary">#059669</color>
+
+    <!-- Глубокие темные фоны -->
+    <color name="background_app">#0F172A</color>
+    <color name="divider">@color/background_overlay</color>
+    <color name="background_overlay">#334155</color>
+    <color name="background_status_bar">#1E293B</color>
+    <color name="background_bottom_bar">#1E293B</color>
+    <color name="icon_outline_color">#F1F5F9</color>
+
+    <!-- Текст для темной темы -->
+    <color name="primary_text">#F1F5F9</color>
+    <color name="secondary_text">#94A3B8</color>
+</resources>
+
