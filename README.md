@@ -1,92 +1,65 @@
-<H1 align="center">MojoLauncher (a.k.a. MJLauncher)</H1>
+# DuutLaunch
 
-<a href="./README_RU.md">Readme на русском</a>
+<a href="./README_RU.md">Читать на русском</a>
 
-<img src="./app_mojo/src/main/assets/mojo.png" align="left" width="150" height="150" alt="MojoLauncher logo">
+A lightweight Minecraft: Java Edition launcher for Android with an emerald interface.
+Built on top of [MojoLauncher](https://github.com/MojoLauncher/MojoLauncher), which is in turn based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher).
 
-[![Android CI](https://github.com/MojoLauncher/MojoLauncher/workflows/Android%20CI/badge.svg)](https://github.com/MojoLauncher/MojoLauncher/actions)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/MojoLauncher/MojoLauncher)](https://github.com/MojoLauncher/MojoLauncher/actions)
-[![Discord](https://img.shields.io/discord/1365346109131722753.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/VHdwQFsaGX)
+> **Status: work in progress.** The project is being ported to the MojoLauncher base. Everything listed under "Goals" and "Roadmap" below is planned and may not be implemented yet.
 
-* MojoLauncher is a launcher, based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher), that allows you to play Minecraft: Java Edition on your Android device!
+## Goals
 
-* It can run almost every version of Minecraft, allowing you to use .jar only installers to install modloaders such as [Forge](https://files.minecraftforge.net/) and [Fabric](http://fabricmc.net/) and mods like [OptiFine](https://optifine.net).
+- **Small APK: under 50 MB.** arm64 only, no bundled Java runtime (it is downloaded on first launch), only the needed languages.
+- **Performance** on par with MojoLauncher: GL4ES and OpenLTW renderers, per-device presets.
+- **A simple interface** with five sections:
+  - **Home**: account, version selection and game launch
+  - **Versions**: install and manage versions, Fabric, Forge, NeoForge, Quilt, OptiFine
+  - **Skin**: view and change your skin
+  - **Settings**: game and launcher options
+  - **Modrinth**: search and install mods and modpacks
+- **Emerald theme** with a switch: dark, light or follow the system.
 
-## Navigation
-- [Introduction](#introduction)
-- [Getting MojoLauncher](#getting-mojolauncher)
-- [Building](#building) 
-- [Current roadmap](#current-roadmap) 
-- [License](#license) 
-- [Contributing](#contributing) 
-- [Credits & Third party components and their licenses](#credits--third-party-components-and-their-licenses-if-available)
+## Roadmap
 
-## Introduction 
-* MojoLauncher is a Minecraft: Java Edition launcher for Android based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)
-* This launcher can launch almost all available Minecraft versions ranging from rd-132211 to 26.x snapshots (including Combat Test versions). 
-* Modding via Forge and Fabric are also supported. 
+- [ ] Rename and a separate `applicationId`
+- [ ] arm64 build without a bundled runtime, measure the APK size
+- [ ] Emerald theme (dark, light, system)
+- [ ] Bottom navigation with 5 sections
+- [ ] Skin screen
+- [ ] Modrinth section design
 
-## Getting MojoLauncher
+## Building
 
-You can get MojoLauncher via four methods:
+You need Android Studio, JDK 17 and an internet connection: the build pulls dependencies, including some from JitPack.
 
-1. You can get the prebuilt app from the [releases section](http://github.com/mojolauncher/mojolauncher/releases).
-
-2. You can get it from Google Play by clicking on this badge:
-[![Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=git.artdeell.mjlaunch)
-
-3. You can get early builds from [Github Actions](http://github.com/mojolauncher/mojolauncher/actions).
-
-4. You can [build](#building) from source.
-## Building   
-* Build the launcher (it will automatically download all required components)
+```bash
+git clone https://github.com/Duulat2014/DuutLaunch.git
+cd DuutLaunch
+./gradlew :app_mojo:assembleNoruntimeDebug
 ```
-./gradlew :app_mojo:assembleDebug
-```
-If you are building on Windows:
-* Replace `./gradlew` with `.\gradlew.bat`
-* Make sure `mojoexec`, `sdl`, `glfw` are symlinked into `app_pojavlauncher/src/main/jni/`
 
-## Current roadmap
-- [x] Instance system in favor of profiles
-- [x] Out-of-the box 1.21.5 support
-- [x] mrpack/CurseForge zip import
-- [x] LTW: enable compute shader/image extensions
-- [ ] LTW: resolve issues with Create
-- [ ] LTW: switch to a color-renderable format for framebuffers
-- [ ] Modpack/mod management tool
-- [ ] MMC-compatible instance import
-- [ ] Vintage Story support
-- [ ] Implement common native library standard
-
-## Known Issues
-- Some physical mice may have very slow mouse speed
-- On Holy GL4ES, large texture atlases may be distorted (resulting in stretched/blocky textures in modpacks)
-- Probably more, that's why we have a bug tracker ;) 
+On Windows use `gradlew.bat` instead of `./gradlew`. The finished APK appears in `app_mojo/build/outputs/apk/`.
 
 ## License
-- MojoLauncher is licensed under [GNU LGPLv3](https://github.com/MojoLauncher/MojoLauncher/blob/v3_openjdk/LICENSE).
 
-## Contributing
-Contributions are welcome! We appreciate any type of contribution, not only code. For example, you can help the wiki shape up. You can help the [translation](https://mojolauncher.ru/translate/translator.html) too!
+DuutLaunch is licensed under the [GNU LGPLv3](LICENSE), like MojoLauncher and PojavLauncher. The source code of any changes stays open, and the copyright notices and license texts of the original projects are preserved.
 
+## Third-party components
 
-Any code change to this repository should be submitted as a pull request. The description should explain what the code does and give steps to execute it.
+This project uses components from MojoLauncher and PojavLauncher and their dependencies:
 
-## Third party components, licenses and sources (when applicable)
-- [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher): [GNU LGPLv3 License](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
-- Android Support Libraries: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
-- [Holy GL4ES](https://github.com/artdeell/gl4es_extra_extra/): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
-- [OpenJDK](https://github.com/PojavLauncherTeam/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html).
-- [GLFW](https://github.com/MojoLauncher/glfw): [zlib license](https://github.com/MojoLauncher/glfw/blob/glfw34/LICENSE.md)
-- [SDL](https://github.com/MojoLauncher/MojoSDL): [zlib license](https://github.com/MojoLauncher/MojoSDL/blob/main/LICENSE.txt)
-- [LWJGL2-GLFW](https://github.com/MojoLauncher/lwjgl2-glfw): 3-Clause BSD license
-- [LWJGL3](https://github.com/LWJGL/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md).
-- [mojoexec](https://github.com/MojoLauncher/mojoexec): [MIT License](https://github.com/MojoLauncher/mojoexec/blob/master/LICENSE)
-- [Mesa 3D Graphics Library](https://gitlab.freedesktop.org/mesa/mesa): [MIT License](https://docs.mesa3d.org/license.html).
-- [pro-grade](https://github.com/pro-grade/pro-grade) (Java sandboxing security manager): [Apache License 2.0](https://github.com/pro-grade/pro-grade/blob/master/LICENSE.txt).
-- [bhook](https://github.com/bytedance/bhook) (Used for exit code trapping): [MIT license](https://github.com/bytedance/bhook/blob/main/LICENSE).
-- [Authlib-Injector](https://github.com/yushijinhun/authlib-injector) (Used for authorisation via ely.by): [AGPL-3.0](https://github.com/yushijinhun/authlib-injector/blob/develop/LICENSE).
-- [alsoft](https://github.com/kcat/openal-soft/) (Audio output library): [GNU Library General Public License](https://github.com/kcat/openal-soft/blob/master/COPYING) and [Modified PFFFT](https://github.com/kcat/openal-soft/blob/master/LICENSE-pffft).
-- [oboe](https://github.com/google/oboe): [Apache License 2.0](https://github.com/google/oboe/blob/main/LICENSE).
-- Thanks to [Mineskin](https://mineskin.eu/) for providing Minecraft avatars.
+- [MojoLauncher](https://github.com/MojoLauncher/MojoLauncher): GNU LGPLv3
+- [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher): GNU LGPLv3
+- Android Support Libraries: Apache License 2.0
+- [Holy GL4ES](https://github.com/artdeell/gl4es_extra_extra/): MIT
+- [OpenJDK](https://github.com/PojavLauncherTeam/openjdk-multiarch-jdk8u): GNU GPLv2 with Classpath Exception
+- [LWJGL3](https://github.com/LWJGL/lwjgl3): BSD-3
+- [mojoexec](https://github.com/MojoLauncher/mojoexec): MIT
+- [Mesa 3D](https://gitlab.freedesktop.org/mesa/mesa): MIT
+- [pro-grade](https://github.com/pro-grade/pro-grade): Apache License 2.0
+- [OpenAL Soft](https://github.com/kcat/openal-soft/): GNU LGPL
+- [Oboe](https://github.com/google/oboe): Apache License 2.0
+
+## Disclaimer
+
+This project is not affiliated with, endorsed by, or approved by Mojang Studios, Microsoft, MojoLauncher or PojavLauncher. Minecraft is a trademark of Mojang Studios. A legitimate copy of Minecraft: Java Edition is required to play.
