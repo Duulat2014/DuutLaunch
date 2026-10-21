@@ -22,6 +22,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatDelegate;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.kdt.mcgui.ProgressLayout;
 
@@ -49,6 +52,27 @@ import git.artdeell.mojo.tasks.mojson.MoJsonDownloader;
 import git.artdeell.mojo.utils.NotificationUtils;
 
 public class LauncherActivity extends BaseActivity {
+    // Метод для смены и сохранения темы
+    public static void changeAppTheme(Context context, int mode) {
+    // mode варианты:
+    // AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM — Системная
+    // AppCompatDelegate.MODE_NIGHT_NO — Светлая
+    // AppCompatDelegate.MODE_NIGHT_YES — Темная
+    
+        AppCompatDelegate.setDefaultNightMode(mode);
+
+        // Сохраняем выбор в SharedPreferences
+        SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
+        prefs.edit().putInt("selected_theme", mode).apply();
+    }
+
+    // Метод для восстановления темы при запуске (вызывать в MainActivity.java в методе onCreate)
+    public static void loadSavedTheme(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
+        int savedMode = prefs.getInt("selected_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(savedMode);
+    }
+    
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
 
     private FragmentContainerView mFragmentView;
