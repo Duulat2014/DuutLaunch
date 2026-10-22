@@ -7,6 +7,8 @@
     <!-- Неоново-изумрудный акцент для темной темы -->
     <color name="minebutton_color">#10B981</color>
     <color name="minebutton_secondary">#059669</color>
+    <color name="emerald_on_primary">#FFFFFF</color>
+    
 
     <!-- Глубокие темные фоны -->
     <color name="background_app">#0F172A</color>
