@@ -207,13 +207,11 @@ public class LauncherActivity extends BaseActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment, new com.duulat.duutlaunch.fragments.HomeFragment())
+                    .replace(R.id.container_fragment, new git.artdeell.mojo.fragments.HomeFragment())
                     .commit();
                 return true;
             } else if (id == R.id.nav_versions) {
-                getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment, new com.duulat.duutlaunch.fragments.VersionsFragment())
-                    .commit();
+                
                 return true;
             } else if (id == R.id.nav_skin) {
                 // Здесь будет вкладка Скин
