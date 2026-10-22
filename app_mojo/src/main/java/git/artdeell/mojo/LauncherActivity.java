@@ -226,7 +226,9 @@ public class LauncherActivity extends BaseActivity {
                     .commit();
                 return true;
             } else if (id == R.id.nav_settings) {
-                // Здесь будут Настройки
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_fragment, new git.artdeell.mojo.fragments.SettingsFragment())
+                    .commit();
                 return true;
             }
             return false;
