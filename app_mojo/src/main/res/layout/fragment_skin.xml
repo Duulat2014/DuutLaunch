@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_app"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <!-- Заголовок раздела -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кастомизация скина"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Поле ввода никнейма -->
+    <EditText
+        android:id="@+id/edit_skin_username"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:hint="Введите ник игрока"
+        android:textColor="@color/primary_text"
+        android:textColorHint="@color/secondary_text"
+        android:background="@color/background_overlay"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Изумрудная кнопка загрузки по нику -->
+    <Button
+        android:id="@+id/btn_load_skin"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Загрузить по нику"
+        android:textColor="@color/emerald_on_primary"
+        android:textStyle="bold"
+        android:backgroundTint="@color/minebutton_color"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Кнопка выбора локального файла .png -->
+    <Button
+        android:id="@+id/btn_pick_file"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Выбрать файл скина (.png)"
+        android:textColor="@color/primary_text"
+        android:backgroundTint="@color/background_overlay" />
+
+</LinearLayout>
