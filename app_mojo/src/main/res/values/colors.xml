@@ -7,6 +7,8 @@
     <!-- Изумрудный акцент вместо старого голубого -->
     <color name="minebutton_color">#059669</color>
     <color name="minebutton_secondary">#047857</color>
+    <color name="emerald_on_primary">#FFFFFF</color>
+    
 
     <!-- Чистые светлые фоны -->
     <color name="background_app">#F8FAFC</color>
