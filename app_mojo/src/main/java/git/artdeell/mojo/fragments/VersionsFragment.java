@@ -26,7 +26,7 @@ import git.artdeell.mojo.Tools;
 public class VersionsFragment extends Fragment {
 
     private ListView listViewVersions;
-    private Button btnInstallVersion;
+    private Button btnAddVersion;
     private final List<String> versionDisplayList = new ArrayList<>();
 
     @Nullable
@@ -34,13 +34,13 @@ public class VersionsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_versions, container, false);
         listViewVersions = view.findViewById(R.id.list_versions);
-        btnInstallVersion = view.findViewById(R.id.btn_install_version);
+        btnAddVersion = view.findViewById(R.id.btn_add_version); // Точный ID из твоего XML
 
         loadAllMinecraftVersions();
 
-        if (btnInstallVersion != null) {
-            btnInstallVersion.setOnClickListener(v -> {
-                // Действие по установке выбранной версии
+        if (btnAddVersion != null) {
+            btnAddVersion.setOnClickListener(v -> {
+                // Действие по нажатию на кнопку «Установить версию»
             });
         }
 
@@ -50,7 +50,7 @@ public class VersionsFragment extends Fragment {
     private void loadAllMinecraftVersions() {
         versionDisplayList.clear();
 
-        // 1. Сначала добавляем уже установленные локально версии
+        // 1. Сначала добавляем локальные установленные версии
         try {
             File versionsDir = new File(Tools.DIR_GAME, "versions");
             if (versionsDir.exists() && versionsDir.isDirectory()) {
@@ -67,7 +67,7 @@ public class VersionsFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // 2. Загружаем полный список всех версий из официального манифеста Mojang в фоновом потоке
+        // 2. Загружаем полный список (релизы, снапшоты, альфа, бета) с серверов Mojang
         new Thread(() -> {
             try {
                 URL url = new URL("https://launchermeta.mojang.com/mc/game/version_manifest_json.json");
@@ -88,16 +88,13 @@ public class VersionsFragment extends Fragment {
                     String id = verObj.getString("id");
                     String type = verObj.getString("type"); // release, snapshot, old_alpha, old_beta
 
-                    // Добавляем красивую пометку для удобства
                     String label = id + " (" + type + ")";
-                    
-                    // Чтобы дубликаты установленных не плодились, проверяем список
                     if (!versionDisplayList.toString().contains(id)) {
                         versionDisplayList.add(label);
                     }
                 }
 
-                // Обновляем список на экране в главном потоке UI
+                // Обновляем UI в главном потоке
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
