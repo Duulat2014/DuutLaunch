@@ -258,6 +258,9 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
 
         mSettingsButton.setOnClickListener(mSettingButtonListener);
+        if (mSettingsButton != null) {
+            mSettingsButton.setVisibility(View.GONE);
+        }
         ProgressKeeper.addTaskCountListener(mProgressLayout);
         ExtraCore.addExtraListener(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
