@@ -4,29 +4,114 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import git.artdeell.mojo.R;
+import git.artdeell.mojo.Tools;
 
 public class VersionsFragment extends Fragment {
+
+    private ListView listViewVersions;
+    private Button btnInstallVersion;
+    private final List<String> versionDisplayList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_versions, container, false);
+        listViewVersions = view.findViewById(R.id.list_versions);
+        btnInstallVersion = view.findViewById(R.id.btn_install_version);
 
-        ListView listView = view.findViewById(R.id.list_versions);
-        Button btnAddVersion = view.findViewById(R.id.btn_add_version);
+        loadAllMinecraftVersions();
 
-        btnAddVersion.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Открытие установщика версий...", Toast.LENGTH_SHORT).show();
-        });
+        if (btnInstallVersion != null) {
+            btnInstallVersion.setOnClickListener(v -> {
+                // Действие по установке выбранной версии
+            });
+        }
 
         return view;
+    }
+
+    private void loadAllMinecraftVersions() {
+        versionDisplayList.clear();
+
+        // 1. Сначала добавляем уже установленные локально версии
+        try {
+            File versionsDir = new File(Tools.DIR_GAME, "versions");
+            if (versionsDir.exists() && versionsDir.isDirectory()) {
+                File[] files = versionsDir.listFiles();
+                if (files != null) {
+                    for (File f : files) {
+                        if (f.isDirectory()) {
+                            versionDisplayList.add("[Установлена] " + f.getName());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 2. Загружаем полный список всех версий из официального манифеста Mojang в фоновом потоке
+        new Thread(() -> {
+            try {
+                URL url = new URL("https://launchermeta.mojang.com/mc/game/version_manifest_json.json");
+                InputStreamReader reader = new InputStreamReader(url.openStream());
+                StringBuilder builder = new StringBuilder();
+                int data = reader.read();
+                while (data != -1) {
+                    builder.append((char) data);
+                    data = reader.read();
+                }
+                reader.close();
+
+                JSONObject jsonRoot = new JSONObject(builder.toString());
+                JSONArray versionsArray = jsonRoot.getJSONArray("versions");
+
+                for (int i = 0; i < versionsArray.length(); i++) {
+                    JSONObject verObj = versionsArray.getJSONObject(i);
+                    String id = verObj.getString("id");
+                    String type = verObj.getString("type"); // release, snapshot, old_alpha, old_beta
+
+                    // Добавляем красивую пометку для удобства
+                    String label = id + " (" + type + ")";
+                    
+                    // Чтобы дубликаты установленных не плодились, проверяем список
+                    if (!versionDisplayList.toString().contains(id)) {
+                        versionDisplayList.add(label);
+                    }
+                }
+
+                // Обновляем список на экране в главном потоке UI
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                                requireContext(),
+                                android.R.layout.simple_list_item_1,
+                                versionDisplayList
+                        );
+                        listViewVersions.setAdapter(adapter);
+                    });
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
