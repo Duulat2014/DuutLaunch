@@ -405,10 +405,11 @@ public class LauncherActivity extends BaseActivity {
             if (mProgressLayout != null) {
                 mProgressLayout.setVisibility(View.VISIBLE);
             }
-        // Запуск процесса проверки и подготовки игры
-            git.artdeell.mojo.Tools.runOnThread(() -> {
-            // Стандартный вызов подготовки к запуску в Mojo
-            });
+        
+        new Thread(() -> {
+           // Стандартный фоновый поток
+        }).start();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
