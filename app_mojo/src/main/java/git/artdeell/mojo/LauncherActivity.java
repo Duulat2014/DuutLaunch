@@ -221,7 +221,9 @@ public class LauncherActivity extends BaseActivity {
                     .commit();
                 return true;
             } else if (id == R.id.nav_modrinth) {
-                // Здесь будет вкладка Modrinth
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_fragment, new git.artdeell.mojo.fragments.ModrinthFragment())
+                    .commit();
                 return true;
             } else if (id == R.id.nav_settings) {
                 // Здесь будут Настройки
