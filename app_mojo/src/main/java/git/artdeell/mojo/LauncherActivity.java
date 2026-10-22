@@ -199,6 +199,35 @@ public class LauncherActivity extends BaseActivity {
 
         getWindow().setBackgroundDrawable(null);
         bindViews();
+        // Настройка переключения разделов через нижнее меню
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_home) {
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.nav_host_fragment, new com.duulat.duutlaunch.fragments.HomeFragment())
+                    .commit();
+                return true;
+            } else if (id == R.id.nav_versions) {
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.nav_host_fragment, new com.duulat.duutlaunch.fragments.VersionsFragment())
+                    .commit();
+                return true;
+            } else if (id == R.id.nav_skin) {
+                // Здесь будет вкладка Скин
+                return true;
+            } else if (id == R.id.nav_modrinth) {
+                // Здесь будет вкладка Modrinth
+                return true;
+            } else if (id == R.id.nav_settings) {
+                // Здесь будут Настройки
+                return true;
+            }
+            return false;
+        });
+    }
+        
         mRequestPermissionLauncher = this.registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
                 isAllowed -> {
@@ -354,27 +383,5 @@ public class LauncherActivity extends BaseActivity {
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
         mProgressLayout = findViewById(R.id.progress_layout);
-    }
-    // Пример логики переключения вкладок в Java
-    bottomNavigationView.setOnItemSelectedListener(item -> {
-        int id = item.getItemId();
-        if (id == R.id.nav_home) {
-            // Открыть главный фрагмент
-            return true;
-        } else if (id == R.id.nav_versions) {
-            // Открыть список версий
-            return true;
-        } else if (id == R.id.nav_skin) {
-            // Открыть вкладку скинов
-            return true;
-        } else if (id == R.id.nav_modrinth) {
-            // Открыть вкладку Modrinth
-            return true;
-        } else if (id == R.id.nav_settings) {
-            // Открыть настройки
-            return true;
-        }
-        return false;
-});
-
+    };
 }
