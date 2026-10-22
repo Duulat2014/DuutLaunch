@@ -50,6 +50,7 @@ import git.artdeell.mojo.tasks.mojson.MoJsonExtras;
 import git.artdeell.mojo.tasks.AsyncVersionList;
 import git.artdeell.mojo.tasks.mojson.MoJsonDownloader;
 import git.artdeell.mojo.utils.NotificationUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class LauncherActivity extends BaseActivity {
     // Метод для смены и сохранения темы
