@@ -211,7 +211,9 @@ public class LauncherActivity extends BaseActivity {
                     .commit();
                 return true;
             } else if (id == R.id.nav_versions) {
-                
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_fragment, new git.artdeell.mojo.fragments.VersionsFragment())
+                    .commit();
                 return true;
             } else if (id == R.id.nav_skin) {
                 // Здесь будет вкладка Скин
