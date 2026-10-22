@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import git.artdeell.mojo.R;
+// Импортируем родные экраны настроек Mojo, если они есть в проекте:
+// Например: git.artdeell.mojo.CustomControlsActivity и т.д.
 
 public class SettingsFragment extends Fragment {
 
@@ -24,40 +27,41 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Spinner spinnerTheme = view.findViewById(R.id.spinner_theme);
+        Button btnGraphics = view.findViewById(R.id.btn_graphics_settings);
+        Button btnControls = view.findViewById(R.id.btn_controls_settings);
+        Button btnJava = view.findViewById(R.id.btn_java_settings);
+        Button btnOther = view.findViewById(R.id.btn_other_settings);
 
-        // Варианты тем
+        // Настройка тем
         String[] themes = {"Системная", "Светлая", "Темная"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, themes);
         spinnerTheme.setAdapter(adapter);
 
-        // Устанавливаем текущий выбор
         SharedPreferences prefs = requireContext().getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
         int currentMode = prefs.getInt("selected_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        if (currentMode == AppCompatDelegate.MODE_NIGHT_NO) {
-            spinnerTheme.setSelection(1);
-        } else if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
-            spinnerTheme.setSelection(2);
-        } else {
-            spinnerTheme.setSelection(0);
-        }
+        spinnerTheme.setSelection(currentMode == AppCompatDelegate.MODE_NIGHT_NO ? 1 : (currentMode == AppCompatDelegate.MODE_NIGHT_YES ? 2 : 0));
 
-        // Обработка выбора темы
         spinnerTheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-                if (position == 1) {
-                    mode = AppCompatDelegate.MODE_NIGHT_NO;
-                } else if (position == 2) {
-                    mode = AppCompatDelegate.MODE_NIGHT_YES;
-                }
+                if (position == 1) mode = AppCompatDelegate.MODE_NIGHT_NO;
+                else if (position == 2) mode = AppCompatDelegate.MODE_NIGHT_YES;
 
                 AppCompatDelegate.setDefaultNightMode(mode);
                 prefs.edit().putInt("selected_theme", mode).apply();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Обработка нажатий на системные кнопки настроек
+        btnGraphics.setOnClickListener(v -> {
+            // Вызов родного метода или активности настроек графики Mojo
+        });
+        
+        btnControls.setOnClickListener(v -> {
+            // Открытие настроек управления
         });
 
         return view;
