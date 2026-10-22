@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_app"
+    android:padding="16dp">
+
+    <!-- Заголовок раздела -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Управление версиями"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Список установленных версий -->
+    <ListView
+        android:id="@+id/list_versions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/divider"
+        android:dividerHeight="1dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Изумрудная кнопка установки версии -->
+    <Button
+        android:id="@+id/btn_add_version"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Установить версию"
+        android:textColor="@color/emerald_on_primary"
+        android:textStyle="bold"
+        android:backgroundTint="@color/minebutton_color" />
+
+</LinearLayout>
