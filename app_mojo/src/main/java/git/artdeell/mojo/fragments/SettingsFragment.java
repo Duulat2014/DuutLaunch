@@ -53,29 +53,21 @@ public class SettingsFragment extends Fragment {
         });
 
         btnGraphics.setOnClickListener(v -> {
-            try {
-                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.GraphicsActivity.class));
-            } catch (Exception e) {}
+            android.widget.Toast.makeText(getContext(), "Настройки графики", android.widget.Toast.LENGTH_SHORT).show();
         });
 
         btnControls.setOnClickListener(v -> {
-            try {
-                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.ControlSettingsActivity.class));
-            } catch (Exception e) {}
+            android.widget.Toast.makeText(getContext(), "Настройки управления", android.widget.Toast.LENGTH_SHORT).show();
         });
 
         btnJava.setOnClickListener(v -> {
-            try {
-                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.JavaPreferencesActivity.class));
-            } catch (Exception e) {}
+            android.widget.Toast.makeText(getContext(), "Настройки Java и памяти", android.widget.Toast.LENGTH_SHORT).show();
         });
 
         btnOther.setOnClickListener(v -> {
-            try {
-                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.GlobalPreferencesActivity.class));
-            } catch (Exception e) {}
+            android.widget.Toast.makeText(getContext(), "Другие настройки", android.widget.Toast.LENGTH_SHORT).show();
         });
-
+        
         return view;
     }
 }
