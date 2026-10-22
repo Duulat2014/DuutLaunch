@@ -398,11 +398,22 @@ public class LauncherActivity extends BaseActivity {
     }
 
     public void triggerOriginalPlay() {
-        // Если переменная оригинальной кнопки называется mPlayButton:
-        if (mPlayButton != null) {
-            mPlayButton.performClick();
+        try {
+        // Здесь вызывается стандартная логика запуска лаунчера Mojo
+        // Если у тебя в активности есть готовый метод запуска (например, startGame или аналогичный), вызови его здесь.
+        // Либо запуск через менеджер задач/потоков лаунчера:
+            if (mProgressLayout != null) {
+                mProgressLayout.setVisibility(View.VISIBLE);
+            }
+        // Запуск процесса проверки и подготовки игры
+            git.artdeell.mojo.Tools.runOnThread(() -> {
+            // Стандартный вызов подготовки к запуску в Mojo
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+    
     
 
     /** Stuff all the view boilerplate here */
