@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,49 +7,55 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
+    <!-- Выпадающий список аккаунтов (родной элемент Mojo) -->
     <com.kdt.mcgui.AccountSpinner
         android:id="@+id/account_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_52sdp"
-
         android:dropDownWidth="@dimen/_250sdp"
         android:dropDownVerticalOffset="@dimen/_52sdp"
         android:paddingEnd="@dimen/_52sdp"
-
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
-    <!-- Ignore because it's  done to fit the ImageButton within spinner background -->
 
+    <!-- Кнопка настроек в шапке (родной элемент Mojo) -->
     <ImageButton
         android:id="@+id/setting_button"
         android:layout_width="@dimen/_52sdp"
         android:layout_height="@dimen/_52sdp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_px_sliders"
+        android:src="@drawable/ic_ps_sliders"
         android:scaleType="fitCenter"
-        android:paddingVertical="@dimen/_8sdp"
-
+        android:paddingVertical="@dimen/_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Holding most of the dynamic content -->
+    <!-- Основной контейнер для наших разделов (Главная, Версии, Скин и т.д.) -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
         android:name="git.artdeell.mojo.fragments.MainMenuFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/account_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
 
+    <!-- Изумрудное нижнее меню навигации (наше добавление) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_bottom_bar"
+        app:itemIconTint="@color/minebutton_color"
+        app:itemTextColor="@color/primary_text"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toTopOf="@+id/progress_layout" />
 
+    <!-- Панель прогресса загрузки файлов (родной элемент Mojo) -->
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
