@@ -396,6 +396,13 @@ public class LauncherActivity extends BaseActivity {
                 .apply();
     }
 
+    public void triggerOriginalPlay() {
+        // Если переменная оригинальной кнопки называется mPlayButton:
+        if (mPlayButton != null) {
+            mPlayButton.performClick();
+        }
+    }
+
     /** Stuff all the view boilerplate here */
     private void bindViews(){
         mFragmentView = findViewById(R.id.container_fragment);
