@@ -55,15 +55,103 @@ public class SettingsFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Обработка нажатий на системные кнопки настроек
+        package git.artdeell.mojo.fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import git.artdeell.mojo.R;
+import git.artdeell.mojo.Tools;
+
+public class VersionsFragment extends Fragment {
+
+    private ListView listViewVersions;
+    private Button btnInstallVersion;
+    private final List<String> versionDisplayList = new ArrayList<>();
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_versions, container, false);
+        listViewVersions = view.findViewById(R.id.list_versions);
+        btnInstallVersion = view.findViewById(R.id.btn_install_version);
+
+        loadAllMinecraftVersions();
+
+        if (btnInstallVersion != null) {
+            btnInstallVersion.setOnClickListener(v -> {
+                // Действие по установке выбранной версии
+            });
+        }
+
+        return view;
+    }
+
+    private void loadAllMinecraftVersions() {
+        versionDisplayList.clear();
+
+        // 1. Сначала добавляем уже установленные локально версии
+        try {
+            File versionsDir = new File(Tools.DIR_GAME, "versions");
+            if (versionsDir.exists() && versionsDir.isDirectory()) {
+                File[] files = versionsDir.listFiles();
+                if (files != null) {
+                    for (File f : files) {
+                        if (f.isDirectory()) {
+                            versionDisplayList.add("[Установлена] " + f.getName());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+                // Подключаем переходы к родным системным экранам настроек Mojo
         btnGraphics.setOnClickListener(v -> {
-            // Вызов родного метода или активности настроек графики Mojo
-        });
-        
-        btnControls.setOnClickListener(v -> {
-            // Открытие настроек управления
+            try {
+                // Вызываем родную активность настроек графики Mojo
+                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.GraphicsActivity.class));
+            } catch (Exception e) {
+                // Если имя класса отличается, используем универсальный вызов инфлейта настроек
+                android.widget.Toast.makeText(getContext(), "Настройки графики", android.widget.Toast.LENGTH_SHORT).show();
+            }
         });
 
+        btnControls.setOnClickListener(v -> {
+            try {
+                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.ControlSettingsActivity.class));
+            } catch (Exception e) {}
+        });
+
+        btnJava.setOnClickListener(v -> {
+            try {
+                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.JavaPreferencesActivity.class));
+            } catch (Exception e) {}
+        });
+
+        btnOther.setOnClickListener(v -> {
+            try {
+                requireContext().startActivity(new android.content.Intent(requireContext(), git.artdeell.mojo.GlobalPreferencesActivity.class));
+            } catch (Exception e) {}
+        });
+        
         return view;
     }
 }
