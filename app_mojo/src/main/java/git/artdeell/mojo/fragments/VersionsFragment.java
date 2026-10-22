@@ -34,13 +34,13 @@ public class VersionsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_versions, container, false);
         listViewVersions = view.findViewById(R.id.list_versions);
-        btnAddVersion = view.findViewById(R.id.btn_add_version); // Точный ID из твоего XML
+        btnAddVersion = view.findViewById(R.id.btn_add_version);
 
         loadAllMinecraftVersions();
 
         if (btnAddVersion != null) {
             btnAddVersion.setOnClickListener(v -> {
-                // Действие по нажатию на кнопку «Установить версию»
+                // Действие при нажатии на кнопку установки версии
             });
         }
 
@@ -50,7 +50,6 @@ public class VersionsFragment extends Fragment {
     private void loadAllMinecraftVersions() {
         versionDisplayList.clear();
 
-        // 1. Сначала добавляем локальные установленные версии
         try {
             File versionsDir = new File(Tools.DIR_GAME, "versions");
             if (versionsDir.exists() && versionsDir.isDirectory()) {
@@ -67,7 +66,6 @@ public class VersionsFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // 2. Загружаем полный список (релизы, снапшоты, альфа, бета) с серверов Mojang
         new Thread(() -> {
             try {
                 URL url = new URL("https://launchermeta.mojang.com/mc/game/version_manifest_json.json");
@@ -86,7 +84,7 @@ public class VersionsFragment extends Fragment {
                 for (int i = 0; i < versionsArray.length(); i++) {
                     JSONObject verObj = versionsArray.getJSONObject(i);
                     String id = verObj.getString("id");
-                    String type = verObj.getString("type"); // release, snapshot, old_alpha, old_beta
+                    String type = verObj.getString("type");
 
                     String label = id + " (" + type + ")";
                     if (!versionDisplayList.toString().contains(id)) {
@@ -94,7 +92,6 @@ public class VersionsFragment extends Fragment {
                     }
                 }
 
-                // Обновляем UI в главном потоке
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
