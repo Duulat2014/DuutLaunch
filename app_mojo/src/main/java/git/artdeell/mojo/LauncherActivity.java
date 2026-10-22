@@ -355,4 +355,26 @@ public class LauncherActivity extends BaseActivity {
         mSettingsButton = findViewById(R.id.setting_button);
         mProgressLayout = findViewById(R.id.progress_layout);
     }
+    // Пример логики переключения вкладок в Java
+    bottomNavigationView.setOnItemSelectedListener(item -> {
+        int id = item.getItemId();
+        if (id == R.id.nav_home) {
+            // Открыть главный фрагмент
+            return true;
+        } else if (id == R.id.nav_versions) {
+            // Открыть список версий
+            return true;
+        } else if (id == R.id.nav_skin) {
+            // Открыть вкладку скинов
+            return true;
+        } else if (id == R.id.nav_modrinth) {
+            // Открыть вкладку Modrinth
+            return true;
+        } else if (id == R.id.nav_settings) {
+            // Открыть настройки
+            return true;
+        }
+        return false;
+});
+
 }
