@@ -181,6 +181,9 @@ public class LauncherActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("launcher_prefs", MODE_PRIVATE);
+        int savedMode = prefs.getInt("selected_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(savedMode);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mojo_ui);
         MoJsonDownloader.prepareSubstitutionMap(getAssets());
