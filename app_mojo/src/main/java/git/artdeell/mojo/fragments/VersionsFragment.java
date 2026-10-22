@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import git.artdeell.mojo.R;
-import git.artdeell.mojo.Tools;
 
 public class VersionsFragment extends Fragment {
 
@@ -51,7 +50,8 @@ public class VersionsFragment extends Fragment {
         versionDisplayList.clear();
 
         try {
-            File versionsDir = new File(Tools.DIR_GAME, "versions");
+            // Безопасный путь к папке версий через внутреннее хранилище приложения
+            File versionsDir = new File(requireContext().getFilesDir(), "game/versions");
             if (versionsDir.exists() && versionsDir.isDirectory()) {
                 File[] files = versionsDir.listFiles();
                 if (files != null) {
