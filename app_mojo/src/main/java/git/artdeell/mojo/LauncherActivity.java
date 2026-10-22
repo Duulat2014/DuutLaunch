@@ -200,6 +200,14 @@ public class LauncherActivity extends BaseActivity {
 
         getWindow().setBackgroundDrawable(null);
         bindViews();
+
+        // Загружаем наш Главный фрагмент сразу при старте приложения
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+               .replace(R.id.container_fragment, new git.artdeell.mojo.fragments.HomeFragment())
+               .commit();
+        }
+        
         // Настройка переключения разделов через нижнее меню
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
