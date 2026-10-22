@@ -256,11 +256,12 @@ public class LauncherActivity extends BaseActivity {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
-
-        mSettingsButton.setOnClickListener(mSettingButtonListener);
-        if (mSettingsButton != null) {
-            mSettingsButton.setVisibility(View.GONE);
+        // Скрываем старую кнопку настроек вверху справа
+        View settingBtn = findViewById(R.id.setting_button);
+        if (settingBtn != null) {
+            settingBtn.setVisibility(View.GONE);
         }
+        
         ProgressKeeper.addTaskCountListener(mProgressLayout);
         ExtraCore.addExtraListener(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
@@ -402,6 +403,7 @@ public class LauncherActivity extends BaseActivity {
             mPlayButton.performClick();
         }
     }
+    
 
     /** Stuff all the view boilerplate here */
     private void bindViews(){
