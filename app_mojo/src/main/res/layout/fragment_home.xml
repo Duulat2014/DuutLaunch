@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/background_app"
+    android:padding="24dp">
+
+    <!-- Карточка с информацией о версии -->
+    <TextView
+        android:id="@+id/text_selected_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выбранная версия: Fabric 1.21.1"
+        android:textColor="@color/secondary_text"
+        android:textSize="16sp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Большая изумрудная кнопка ИГРАТЬ -->
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="ИГРАТЬ"
+        android:textColor="@color/emerald_on_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/minebutton_color"
+        android:elevation="4dp" />
+
+</LinearLayout>
