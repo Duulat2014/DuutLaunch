@@ -24,7 +24,7 @@
         android:layout_width="@dimen/_52sdp"
         android:layout_height="@dimen/_52sdp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_ps_sliders"
+        android:src="@drawable/ic_settings"
         android:scaleType="fitCenter"
         android:paddingVertical="@dimen/_8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,8 +45,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_bottom_bar"
-        app:itemIconTint="@color/minebutton_color"
-        app:itemTextColor="@color/primary_text"
         app:menu="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toTopOf="@+id/progress_layout" />
 
